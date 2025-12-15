@@ -13,3 +13,9 @@ test('Menggunakan Mustache Cache', () => {
     const data = mustache.render('Hello {{name}}', {name: "Renyui"});
     expect(data).toBe('Hello Renyui');
 });
+
+test('Tags', () => {
+    //gunakan kurung kurawa 3 kali, untuk menampilkan code html pada data template
+    const data = mustache.render('Hello {{name}}, my last name is {{{lastname}}}', {name: "Renyui", lastname: "<b>Sueb</b>"});
+    expect(data).toBe('Hello Renyui, my last name is <b>Sueb</b>');
+});
