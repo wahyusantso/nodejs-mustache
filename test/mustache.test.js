@@ -1,4 +1,5 @@
 import mustache from "mustache";
+import fs from "fs/promises";
 
 test('Menggunakan Mustache', () => {
     //parameter 1: data template.
@@ -28,4 +29,15 @@ test('Nested Object', () => {
         }
     });
     expect(data).toBe('My Hobby is Drawing');
+});
+
+test('Mustache File', async () => {
+    const template = await fs.readFile('./templates/hello.mustache') //baca file
+                        .then((data) => data.toString()); //covert ke string, karena data berupa buffer
+    
+        const data = mustache.render(template, { //gunakan template yang sudah dibaca
+            title: "Ricard"
+        });
+        console.info(data);
+        expect(data).toContain('Ricard');
 });
