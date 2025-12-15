@@ -19,3 +19,13 @@ test('Tags', () => {
     const data = mustache.render('Hello {{name}}, my last name is {{{lastname}}}', {name: "Renyui", lastname: "<b>Sueb</b>"});
     expect(data).toBe('Hello Renyui, my last name is <b>Sueb</b>');
 });
+
+test('Nested Object', () => {
+    //mengakses nested object pada data template
+    const data = mustache.render('My Hobby is {{person.hobby}}', {
+        person: {
+            hobby: 'Drawing'
+        }
+    });
+    expect(data).toBe('My Hobby is Drawing');
+});
