@@ -41,3 +41,22 @@ test('Mustache File', async () => {
         console.info(data);
         expect(data).toContain('Ricard');
 });
+
+//menggunakan section pada template jika ingin menerapkan logic seperti ifs
+test('Mustache Section Not Show', async () => {
+    const template = await fs.readFile('./templates/person.mustache') //baca file
+                        .then((data) => data.toString()); //covert ke string, karena data berupa buffer
+    
+        const data = mustache.render(template, {}); //data didalam blok section tidak akan ditampilkan, karena tidak menammbhkan data pada proses ini.
+        console.info(data);
+        expect(data).not.toContain('Hello Person.');
+});
+
+test('Mustache Section Show', async () => {
+    const template = await fs.readFile('./templates/person.mustache') //baca file
+                        .then((data) => data.toString()); //covert ke string, karena data berupa buffer
+    
+        const data = mustache.render(template, {person: "Andrew"}); //selama ada data yang dikirim ke section maka data yang didalam block ditampilkan
+        console.info(data);
+        expect(data).toContain('Hello Person.');
+});
