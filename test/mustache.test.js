@@ -60,3 +60,16 @@ test('Mustache Section Show', async () => {
         console.info(data);
         expect(data).toContain('Hello Person.');
 });
+
+test('Mustache Section Data', async () => {
+    const template = await fs.readFile('./templates/person.mustache') //baca file
+                        .then((data) => data.toString()); //covert ke string, karena data berupa buffer
+    
+        const data = mustache.render(template, { //dapat menggunakan objeck data langsung {{ name }} pada template tanpa harus memanggil sectionnya {{ person.name }}
+            person: {
+                name: "Ricards"
+            } 
+        });
+        console.info(data);
+        expect(data).toContain('Hello Person Ricards');
+});
