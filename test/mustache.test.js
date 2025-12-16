@@ -73,3 +73,13 @@ test('Mustache Section Data', async () => {
         console.info(data);
         expect(data).toContain('Hello Person Ricards');
 });
+
+//Inverted Section {{ ^person }} logika else
+test('Inverted Section', async () => {
+    const template = await fs.readFile('./templates/person.mustache') //baca file
+                        .then((data) => data.toString()); //covert ke string, karena data berupa buffer
+    
+        const data = mustache.render(template, {}); //tidak mengirim data, agar login else dijalankan
+        console.info(data);
+        expect(data).toContain('Hello Guest');
+});
