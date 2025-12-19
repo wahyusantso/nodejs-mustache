@@ -112,3 +112,22 @@ test('List Object', async () => {
         expect(data).toContain('Fadli');
         expect(data).toContain('28');
 });
+
+
+test('Function', async () => {
+    const parameter = {
+        name: "Kevin",
+        upper: () => {
+            //text, untuk mengambil data dari function template
+            //render merupakan function dari mustache
+            return (text, render) => { 
+                return render(text).toUpperCase(); //proses manipulasi data
+            }
+        }
+    }
+    
+    const data = mustache.render("Hello {{#upper}}{{name}}{{/upper}}", parameter);
+    console.info(data);
+
+    expect(data).toBe('Hello KEVIN');
+});
