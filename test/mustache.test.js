@@ -83,3 +83,16 @@ test('Inverted Section', async () => {
         console.info(data);
         expect(data).toContain('Hello Guest');
 });
+
+test('List', async () => {
+    const template = await fs.readFile('./templates/hobbies.mustache') //baca file
+                        .then((data) => data.toString()); //covert ke string, karena data berupa buffer
+    
+        const data = mustache.render(template, {
+            hobbies: ['Coding', 'Watching', 'Gaming'] //parsing data array ke section
+        });
+        console.info(data);
+        expect(data).toContain('Coding');
+        expect(data).toContain('Watching');
+        expect(data).toContain('Gaming');
+});
