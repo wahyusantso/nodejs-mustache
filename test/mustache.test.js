@@ -131,3 +131,15 @@ test('Function', async () => {
 
     expect(data).toBe('Hello KEVIN');
 });
+
+test('Comment', async () => {
+    const template = await fs.readFile('./templates/comments.mustache') //baca file
+                        .then((data) => data.toString()); //covert ke string, karena data berupa buffer
+    
+        const data = mustache.render(template, {
+            title: "Andrew"
+        });
+        console.info(data);
+        expect(data).toContain('Andrew');
+        expect(data).not.toContain('ini komentar, tidak akan ditampilkan saat di render');
+});
