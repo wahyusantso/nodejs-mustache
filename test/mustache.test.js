@@ -143,3 +143,27 @@ test('Comment', async () => {
         expect(data).toContain('Andrew');
         expect(data).not.toContain('ini komentar, tidak akan ditampilkan saat di render');
 });
+
+test('Partials', async () => {
+    //ambil semua template
+    const contentTemplate = await fs.readFile('./templates/content.mustache')
+                        .then((data) => data.toString());
+    const headerTemplate = await fs.readFile('./templates/header.mustache')
+                        .then((data) => data.toString());
+    const footerTemplate = await fs.readFile('./templates/footer.mustache')
+                        .then((data) => data.toString());
+    
+        const data = mustache.render(contentTemplate, {
+            title: "Andrew",
+            content: 'Partial template'
+        }, {
+            //tentukan template partialnya
+            header: headerTemplate,
+            footer: footerTemplate
+        });
+
+        console.info(data);
+        expect(data).toContain('Andrew');
+        expect(data).toContain('Partial template');
+        expect(data).toContain('Powered by Me');
+});
