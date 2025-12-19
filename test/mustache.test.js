@@ -96,3 +96,19 @@ test('List', async () => {
         expect(data).toContain('Watching');
         expect(data).toContain('Gaming');
 });
+
+test('List Object', async () => {
+    const template = await fs.readFile('./templates/students.mustache') //baca file
+                        .then((data) => data.toString()); //covert ke string, karena data berupa buffer
+    
+        const data = mustache.render(template, { //parsing data list object ke section
+            students: [
+                {name : "Rania", age: 28},
+                {name : "Fadli", age: 28}
+            ]
+        });
+        console.info(data);
+        expect(data).toContain('Rania');
+        expect(data).toContain('Fadli');
+        expect(data).toContain('28');
+});
