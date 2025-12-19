@@ -1,5 +1,6 @@
 import mustache from "mustache";
 import fs from "fs/promises";
+import { title } from "process";
 
 test('Menggunakan Mustache', () => {
     //parameter 1: data template.
@@ -166,4 +167,20 @@ test('Partials', async () => {
         expect(data).toContain('Andrew');
         expect(data).toContain('Partial template');
         expect(data).toContain('Powered by Me');
+});
+
+test('Graph', async () => {
+    const template = await fs.readFile('./templates/graph.mustache')
+                        .then((data) => data.toString());
+    
+    const data = mustache.render(template, {
+        title: 'Graph Production',
+        categories: [1995, 2000, 2005, 2010, 2015, 2020, 2023],
+        data: [16, 361, 1018, 2025, 3192, 4673, 5200]
+     });
+
+    console.info(data);
+    expect(data).toContain('Graph Production');
+    expect(data).toContain('1995');
+    expect(data).toContain('4673');
 });
